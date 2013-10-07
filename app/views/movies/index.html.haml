@@ -1,13 +1,22 @@
 -#  This file is app/views/movies/index.html.haml
-%h1 All Movies
 
+-#  Put all html changes here
+%h1 All Movies
+= form_tag movies_path, :method => :get do
+  Include:
+  - @all_ratings.each do |rating|
+    = rating
+    = getCheckBoxStatus(rating)
+  = submit_tag "Refresh"
 %table#movies
   %thead
     %tr
-      %th Movie Title
-      %th Rating
-      %th Release Date
-      %th More Info
+      -# make links to sort_column_link to get links
+      -# use class to set the class of the th element
+      %th{class: "#{getThClass('title')}"}= sort_column_link("title", "Movie Title")
+      %th Rating 
+      %th{class: "#{getThClass('release_date')}"}= sort_column_link("release_date", "Release Date")
+      %th More Info 
   %tbody
     - @movies.each do |movie|
       %tr
